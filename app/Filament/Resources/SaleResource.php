@@ -115,6 +115,8 @@ class SaleResource extends Resource
                                         ->label(__('Quantity'))
                                         ->default(1)
                                         ->live()
+                                        ->numeric()
+                                        ->integer()
                                         ->dehydrated()
                                         ->required(),
 
@@ -123,6 +125,7 @@ class SaleResource extends Resource
                                     Forms\Components\TextInput::make('sale_price')
                                         ->label(__('Sale Price'))
                                         ->live()
+                                        ->numeric()
                                         ->dehydrated()
                                         ->required(),
 
