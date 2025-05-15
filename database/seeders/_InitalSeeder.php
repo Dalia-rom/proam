@@ -22,7 +22,7 @@ class _InitalSeeder extends Seeder
         try {
             // admin
             User::create([
-                'name' => '{ JEBC-DeV }',
+                'name' => 'Admin',
                 'email' => 'admin@admin.com',
                 'email_verified_at' => Carbon::now(),
                 'password' => Hash::make('12345678'),
