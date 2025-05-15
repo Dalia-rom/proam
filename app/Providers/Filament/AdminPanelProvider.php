@@ -39,18 +39,6 @@ class AdminPanelProvider extends PanelProvider
             ->darkMode(true)
             ->sidebarCollapsibleOnDesktop()
 
-            // links de navegación en el menú
-            ->navigationItems([
-                NavigationItem::make('WhatsApp')
-                    ->url('https://wa.me/573052850514', shouldOpenInNewTab: true)
-                    ->icon('heroicon-o-chat-bubble-bottom-center-text')
-                    ->group(__('External Links'))
-                    ->visible(function (): bool {
-                        return Auth::check();
-                    })
-                    ->sort(99),
-            ])
-
             ->userMenuItems([ //para el menu de usuario en la parte superior derecha
                 MenuItem::make()
                     ->label(__('Profile'))
