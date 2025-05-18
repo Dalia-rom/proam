@@ -303,5 +303,7 @@
 
     "Sale Details": "Detalles de Venta",
     "Sale Items": "Artículos de Venta",
-    "Sale Number": "Número de Venta"
+    "Sale Number": "Número de Venta",
+
+    "The products is about to expire in 30 days, :products": "Los productos está a punto de caducar en 30 días, :products"
 }
