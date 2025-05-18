@@ -21,11 +21,13 @@ class NotificationExpiringProductsCommand extends Command
 
         $this->info("Listado de productos expirados {$products->count()}");
 
-        Notification::make()
-            ->title(__('Product'))
-            ->body(__('The products is about to expire in 30 days, :products', [
-                'products' => $products->pluck('name')->implode(', ')
-            ]))
-            ->sendToDatabase(User::all());
+        if ($products->count() > 0) {
+            Notification::make()
+                ->title(__('Product'))
+                ->body(__('The products is about to expire in 30 days, :products', [
+                    'products' => $products->pluck('name')->implode(', ')
+                ]))
+                ->sendToDatabase(User::all());
+        }
     }
 }
