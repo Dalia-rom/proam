@@ -35,7 +35,10 @@ class AdminPanelProvider extends PanelProvider
             ])
             /*  */
             ->font('Poppins')
-            ->favicon(asset('assets/img/logo.jpg'))
+            ->favicon(asset('assets/img/logo.png'))
+            ->brandName(config('app.name'))
+            ->brandLogo(asset('assets/img/logo.png'))
+            ->brandLogoHeight('4rem') // Logo height
             ->darkMode(true)
             ->sidebarCollapsibleOnDesktop()
 
@@ -69,6 +72,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ]);
+            ])
+            ->databaseNotifications();
     }
 }
