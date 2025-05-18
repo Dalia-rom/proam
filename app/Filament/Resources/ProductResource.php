@@ -67,6 +67,12 @@ class ProductResource extends Resource
                             ->required()
                             ->maxLength(200),
 
+                        Forms\Components\DatePicker::make('expiration_at')
+                            ->label(__('Expiration Date'))
+                            ->native(false)
+                            ->minDate(now())
+                            ->required(),
+
                         Forms\Components\Select::make('category_id')
                             ->relationship('category', 'name')
                             ->label(__('Category'))
@@ -172,6 +178,11 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('sale_price')
                     ->label(__('Sale Price'))
                     ->numeric()
+                    ->sortable()->searchable(),
+
+                Tables\Columns\TextColumn::make('expiration_at')
+                    ->label(__('Expiration Date'))
+                    ->date()
                     ->sortable()->searchable(),
 
                 Tables\Columns\TextColumn::make('created_at')

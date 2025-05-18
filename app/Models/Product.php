@@ -22,6 +22,7 @@ class Product extends Model
         'max_stock',
         'purchase_price',
         'sale_price',
+        'expiration_at',
     ];
 
     protected $casts = [

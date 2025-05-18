@@ -131,6 +131,7 @@
     "Multiple Choices": "Múltiples opciones",
     "Name": "Nombre",
     "name": "nombre",
+    "Expiration Date": "Fecha de expiración",
     "Network Authentication Required": "Se requiere autenticación de red",
     "Network Connect Timeout Error": "Error de tiempo de espera de conexión de red",
     "Network Read Timeout Error": "Error de tiempo de espera de lectura de red",

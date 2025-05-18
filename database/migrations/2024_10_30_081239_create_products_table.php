@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('category_id')->references('id')->on('categories')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            
+
             $table->string('code',200)->unique();
             $table->string('name',200)->unique();
             $table->longText('description')->nullable();
@@ -28,14 +28,8 @@ return new class extends Migration
 
             $table->decimal('purchase_price', 12, 2);
             $table->decimal('sale_price', 12, 2);
+            $table->date('expiration_at')->nullable();
 
-
-
-
-
-
-
-            /*  */
             $table->timestamps();
             $table->softDeletes();
         });
