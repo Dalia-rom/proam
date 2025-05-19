@@ -9,11 +9,15 @@ use App\Models\Purchase;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Support\Colors\Color;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Auth;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportAction;
+use pxlrbt\FilamentExcel\Exports\ExcelExport;
 
 class PurchaseResource extends Resource
 {
@@ -50,7 +54,7 @@ class PurchaseResource extends Resource
                     Forms\Components\Wizard\Step::make(__('Purchase Details'))->schema([
 
                         Forms\Components\Section::make()->schema([
-                            
+
                             Forms\Components\Select::make('user_id')
                                 ->label(__('Created By'))
                                 ->relationship('user', 'name')
@@ -101,7 +105,7 @@ class PurchaseResource extends Resource
                                         ->afterStateUpdated(function (callable $set, $state) {
                                             // Obtener el producto seleccionado por su ID
                                             $product = Product::find($state);
-                                            
+
                                             // Si el producto existe, actualizar el precio unitario
                                             if ($product) {
                                                 $set('purchase_price', $product->purchase_price);
@@ -220,7 +224,11 @@ class PurchaseResource extends Resource
                     Tables\Actions\RestoreBulkAction::make(),
 
                 ]),
-
+            ])
+            ->headerActions([
+                ExportAction::make()
+                    ->label(__('Export'))
+                    ->color(Color::Green)
             ]);
     }
 

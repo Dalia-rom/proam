@@ -10,11 +10,14 @@ use App\Models\Sale;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Support\Colors\Color;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Auth;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportAction;
+use pxlrbt\FilamentExcel\Exports\ExcelExport;
 
 class SaleResource extends Resource
 {
@@ -51,7 +54,7 @@ class SaleResource extends Resource
                     Forms\Components\Wizard\Step::make(__('Sale Details'))->schema([
 
                         Forms\Components\Section::make()->schema([
-                            
+
                             Forms\Components\Select::make('user_id')
                                 ->label(__('Created By'))
                                 ->relationship('user', 'name')
@@ -101,7 +104,7 @@ class SaleResource extends Resource
                                         ->afterStateUpdated(function (callable $set, $state) {
                                             // Obtener el producto seleccionado por su ID
                                             $product = Product::find($state);
-                                            
+
                                             // Si el producto existe, actualizar el precio unitario
                                             if ($product) {
                                                 $set('purchase_price', $product->purchase_price);
@@ -120,7 +123,7 @@ class SaleResource extends Resource
                                         ->dehydrated()
                                         ->required(),
 
-                                  
+
 
                                     Forms\Components\TextInput::make('sale_price')
                                         ->label(__('Sale Price'))
@@ -133,7 +136,7 @@ class SaleResource extends Resource
                                 ])->columns(3),
                             ]),
                     ]),
-                    
+
                 ])->columnSpanFull(),
 
 
@@ -178,6 +181,22 @@ class SaleResource extends Resource
                     Tables\Actions\ForceDeleteBulkAction::make(),
                     Tables\Actions\RestoreBulkAction::make(),
                 ]),
+            ])
+            ->headerActions([
+                ExportAction::make()
+                    ->label(__('Export'))
+                    ->color(Color::Green)
+                    ->exports([
+                        ExcelExport::make('Export')
+                            ->fromTable()
+                            ->withWriterType(\Maatwebsite\Excel\Excel::CSV),
+                        ExcelExport::make('Export current month')
+                            ->fromTable()
+                            ->modifyQueryUsing(fn ($query) => $query->whereMonth('date', now()->month))
+                            ->askForFilename()
+                            ->askForWriterType()
+                            ->withFilename(fn ($filename) => config('app.name'). '-' . $filename)
+                    ])
             ]);
     }
 
