@@ -16,7 +16,7 @@ class NotificationExpiringProductsCommand extends Command
     public function handle(): void
     {
         $products = Product::query()
-            ->whereRaw('DATEDIFF(expiration_at, NOW()) = 30')
+            ->whereRaw("expiration_at::date - NOW()::date = 30")
             ->get();
 
         $this->info("Listado de productos expirados {$products->count()}");
