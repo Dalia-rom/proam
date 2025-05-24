@@ -25,7 +25,7 @@ class _InitalSeeder extends Seeder
                 'name' => 'Admin',
                 'email' => 'admin@admin.com',
                 'email_verified_at' => Carbon::now(),
-                'password' => Hash::make('12345678'),
+                'password' => Hash::make('Proam2025$'),
             ]);
 
             // user
@@ -167,7 +167,7 @@ class _InitalSeeder extends Seeder
                 'purchase_id' => $purchase->id,
                 'product_id' => $product->id,
                 'quantity' => fake()->numberBetween(1, 10),
-                
+
                 'purchase_price' => $product->sale_price-(($product->sale_price*20)/100),
                 'sale_price' => $product->sale_price,
             ]);
