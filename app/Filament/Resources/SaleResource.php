@@ -12,6 +12,8 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Support\Colors\Color;
 use Filament\Tables;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -155,6 +157,13 @@ class SaleResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('sale_number')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('sale_details_count')
+                    ->label(__('Products'))
+                    ->counts('saleDetails')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('total')
+                    ->label(__('Total'))
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -169,7 +178,34 @@ class SaleResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                Tables\Filters\TrashedFilter::make(),
+                // Tables\Filters\TrashedFilter::make(),
+                Filter::make('created_at')
+                    ->form([
+                        Forms\Components\DatePicker::make('start_date')
+                            ->label(__('Start Date'))
+                            ->default(now()->subMonth())
+                            ->required(),
+                        Forms\Components\DatePicker::make('end_date')
+                            ->label(__('End Date'))
+                            ->default(now())
+                            ->required(),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when(
+                                $data['start_date'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('date', '>=', $date),
+                            )
+                            ->when(
+                                $data['end_date'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('date', '<=', $date),
+                            );
+                    }),
+                Tables\Filters\SelectFilter::make('user_id')
+                    ->label(__('Created By'))
+                    ->relationship('user', 'name')
+                    ->preload()
+                    ->searchable(),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),

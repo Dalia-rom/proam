@@ -297,6 +297,7 @@
     "Purchase Details": "Detalles de Compra",
     "Purchase Items": "Artículos de Compra",
     "Product": "Producto",
+    "Products": "Productos",
     "Quantity": "Cantidad",
 
     "External Links": "Enlaces Externos",
@@ -305,5 +306,8 @@
     "Sale Items": "Artículos de Venta",
     "Sale Number": "Número de Venta",
 
-    "The products is about to expire in 30 days, :products": "Los productos está a punto de caducar en 30 días, :products"
+    "The products is about to expire in 30 days, :products": "Los productos está a punto de caducar en 30 días, :products",
+
+    "Start Date": "Fecha de Inicio",
+    "End Date": "Fecha de Fin"
 }

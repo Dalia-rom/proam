@@ -11,6 +11,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Support\Colors\Color;
 use Filament\Tables;
+use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -167,6 +168,11 @@ class PurchaseResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: false)
                     ->sortable()->searchable(),
 
+                Tables\Columns\TextColumn::make('purchase_details_count')
+                    ->label(__('Products'))
+                    ->counts('purchaseDetails')
+                    ->sortable(),
+
                 Tables\Columns\TextColumn::make('total')
                     ->label(__('Total'))
                     ->toggleable(isToggledHiddenByDefault: false)
@@ -197,6 +203,29 @@ class PurchaseResource extends Resource
                     ->relationship('user', 'name')
                     ->preload()
                     ->searchable(),
+
+                Filter::make('date_range')
+                    ->form([
+                        Forms\Components\DatePicker::make('start_date')
+                            ->label(__('Start Date'))
+                            ->default(now()->subMonth())
+                            ->required(),
+                        Forms\Components\DatePicker::make('end_date')
+                            ->label(__('End Date'))
+                            ->default(now())
+                            ->required(),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when(
+                                $data['start_date'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('date', '>=', $date),
+                            )
+                            ->when(
+                                $data['end_date'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('date', '<=', $date),
+                            );
+                    }),
 
             ])
             ->actions(
