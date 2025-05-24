@@ -150,12 +150,15 @@ class SaleResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('user.name')
+                    ->label(__('User'))
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('date')
+                    ->label(__('Date'))
                     ->date()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('sale_number')
+                    ->label(__('Sale Number'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('sale_details_count')
                     ->label(__('Products'))
@@ -223,10 +226,10 @@ class SaleResource extends Resource
                     ->label(__('Export'))
                     ->color(Color::Green)
                     ->exports([
-                        ExcelExport::make('Export')
+                        ExcelExport::make(__('Export'))
                             ->fromTable()
                             ->withWriterType(\Maatwebsite\Excel\Excel::XLSX),
-                        ExcelExport::make('Export current month')
+                        ExcelExport::make(__('Export current month'))
                             ->fromTable()
                             ->modifyQueryUsing(fn ($query) => $query->whereMonth('date', now()->month))
                             ->askForFilename()

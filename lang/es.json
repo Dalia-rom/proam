@@ -309,5 +309,6 @@
     "The products is about to expire in 30 days, :products": "Los productos está a punto de caducar en 30 días, :products",
 
     "Start Date": "Fecha de Inicio",
-    "End Date": "Fecha de Fin"
+    "End Date": "Fecha de Fin",
+    "Export current month": "Exportar mes actual"
 }
