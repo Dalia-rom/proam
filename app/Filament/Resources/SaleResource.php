@@ -225,7 +225,7 @@ class SaleResource extends Resource
                     ->exports([
                         ExcelExport::make('Export')
                             ->fromTable()
-                            ->withWriterType(\Maatwebsite\Excel\Excel::CSV),
+                            ->withWriterType(\Maatwebsite\Excel\Excel::XLSX),
                         ExcelExport::make('Export current month')
                             ->fromTable()
                             ->modifyQueryUsing(fn ($query) => $query->whereMonth('date', now()->month))
