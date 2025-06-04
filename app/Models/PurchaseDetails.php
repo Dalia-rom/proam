@@ -16,6 +16,7 @@ class PurchaseDetails extends Model
         'quantity',
         'purchase_price',
         'sale_price',
+        'total',
     ];
 
     public function purchase(): BelongsTo
@@ -36,12 +37,9 @@ class PurchaseDetails extends Model
     protected static function booted(): void
     {
         static::creating(function ($purchaseDetails) {
-
             $product = $purchaseDetails->product; // Obtener el producto
             $product->stock += $purchaseDetails->quantity; // Sumar la cantidad de productos comprados al stock
             $product->save(); // Guardar el cambio en el producto
-
-
         });
     }
 }

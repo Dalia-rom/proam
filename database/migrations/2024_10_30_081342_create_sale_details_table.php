@@ -15,13 +15,14 @@ return new class extends Migration
 
             $table->id();
 
-            
+
             $table->foreignId('sale_id')->references('id')->on('sales')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            
+
             $table->foreignId('product_id')->references('id')->on('products')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
 
             $table->integer('quantity')->default(1);
             $table->decimal('sale_price', 12, 2);
+            $table->decimal('total', 12, 2);
 
 
             /*  */

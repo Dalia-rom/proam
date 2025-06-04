@@ -51,76 +51,130 @@ class _InitalSeeder extends Seeder
     {
         try {
 
-            $vaporizadores = Category::create([
-                'name' => 'Vaporizadores',
-                'description' => 'Vaporizadores',
+            $mediciona = Category::create([
+                'name' => 'Medicamentos',
+                'description' => 'Productos destinados al tratamiento, prevención o alivio de enfermedades. Se dividen en medicamentos con receta médica (controlados) y de venta libre (como analgésicos, antigripales o antiácidos).',
             ]);
 
             Product::create([
-                'category_id' => $vaporizadores->id,
+                'category_id' => $mediciona->id,
                 'code' => 'VAP-001',
-                'name' => 'Vaporizador 001',
-                'description' => 'Vaporizador 001',
+                'name' => 'Paracetamol 500 mg',
+                'description' => 'Analgésico y antipirético de venta libre.',
                 'images' => null,
-                'stock' => 10,
+                'stock' => 231,
                 'min_stock' => 1,
                 'max_stock' => 100,
-                'purchase_price' => 10000,
-                'sale_price' => 20000,
+                'purchase_price' => 3,
+                'sale_price' => 5,
             ]);
 
             Product::create([
-                'category_id' => $vaporizadores->id,
+                'category_id' => $mediciona->id,
                 'code' => 'VAP-002',
-                'name' => 'Vaporizador 002',
-                'description' => 'Vaporizador 002',
+                'name' => 'Amoxicilina 500 mg',
+                'description' => 'Antibiótico de amplio espectro, requiere receta médica.',
                 'images' => null,
-                'stock' => 10,
+                'stock' => 232,
                 'min_stock' => 1,
                 'max_stock' => 100,
-                'purchase_price' => 15000,
-                'sale_price' => 25000,
+                'purchase_price' => 15,
+                'sale_price' => 25,
             ]);
 
-            /*  */
-
-            $digitales = Category::create([
-                'name' => 'Digitales',
-                'description' => 'Digitales',
+            $vitamina = Category::create([
+                'name' => 'Vitaminas y Suplementos',
+                'description' => 'Compuestos nutricionales que ayudan a complementar la dieta, como multivitamínicos, minerales, colágeno o suplementos para fortalecer el sistema inmunológico.',
             ]);
 
             Product::create([
-                'category_id' => $digitales->id,
-                'code' => 'DIG-001',
-                'name' => 'Web en WordPress',
-                'description' => 'Web en WordPress',
+                'category_id' => $vitamina->id,
+                'code' => 'VS-001',
+                'name' => 'Centrum Adultos',
+                'description' => 'multivitamínico diario para hombres y mujeres.',
                 'images' => null,
-                'stock' => 100,
+                'stock' => 23,
                 'min_stock' => 1,
                 'max_stock' => 100,
-                'purchase_price' => 0,
-                'sale_price' => 800000,
-            ]);
-
-            /*  */
-
-            $varios = Category::create([
-                'name' => 'Varios',
-                'description' => 'Varios',
+                'purchase_price' => 100,
+                'sale_price' => 150,
             ]);
 
             Product::create([
-                'category_id' => $varios->id,
-                'code' => 'VAR-001',
-                'name' => 'Varios 001',
-                'description' => 'Varios 001',
+                'category_id' => $vitamina->id,
+                'code' => 'VS-002',
+                'name' => 'Vitamina C 1000 mg',
+                'description' => 'suplemento para fortalecer el sistema inmunológico.',
                 'images' => null,
-                'stock' => 100,
+                'stock' => 22,
                 'min_stock' => 1,
                 'max_stock' => 100,
-                'purchase_price' => 0,
-                'sale_price' => 800000,
+                'purchase_price' => 95,
+                'sale_price' => 125,
             ]);
+
+            $higene = Category::create([
+                'name' => 'Cuidado Personal e Higiene',
+                'description' => 'Artículos para el aseo y el cuidado del cuerpo, como jabones, desodorantes, cepillos de dientes, shampoo, cremas corporales y productos para el afeitado.',
+            ]);
+
+            Product::create([
+                'category_id' => $higene->id,
+                'code' => 'CPH-001',
+                'name' => 'Desodorante Nivea Men Invisible',
+                'description' => 'antitranspirante para uso diario.',
+                'images' => null,
+                'stock' => 32,
+                'min_stock' => 1,
+                'max_stock' => 100,
+                'purchase_price' => 25,
+                'sale_price' => 35,
+            ]);
+
+            Product::create([
+                'category_id' => $higene->id,
+                'code' => 'CPH-002',
+                'name' => 'Shampoo Head & Shoulders',
+                'description' => 'tratamiento anticaspa para todo tipo de cabello.',
+                'images' => null,
+                'stock' => 32,
+                'min_stock' => 1,
+                'max_stock' => 100,
+                'purchase_price' => 15,
+                'sale_price' => 25,
+            ]);
+
+            $cuidado = Category::create([
+                'name' => 'Cuidado Infantil',
+                'description' => 'Productos diseñados para bebés y niños pequeños, incluyendo pañales, toallitas húmedas, fórmulas lácteas, biberones, cremas para rozaduras y artículos de higiene específicos.',
+            ]);
+
+            Product::create([
+                'category_id' => $cuidado->id,
+                'code' => 'CI-001',
+                'name' => 'Pañales Huggies Etapa 2',
+                'description' => 'para bebés de 5 a 8 kg.',
+                'images' => null,
+                'stock' => 312,
+                'min_stock' => 1,
+                'max_stock' => 100,
+                'purchase_price' => 150,
+                'sale_price' => 200,
+            ]);
+
+            Product::create([
+                'category_id' => $cuidado->id,
+                'code' => 'CI-002',
+                'name' => 'Fórmula Enfamil Premium',
+                'description' => 'leche en polvo para lactantes a partir del nacimiento.',
+                'images' => null,
+                'stock' => 231,
+                'min_stock' => 1,
+                'max_stock' => 100,
+                'purchase_price' => 23,
+                'sale_price' => 30,
+            ]);
+
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -153,7 +207,7 @@ class _InitalSeeder extends Seeder
 
         $purchase = Purchase::create([
             'user_id' => User::inRandomOrder()->first()->id,
-            'date' => fake()->dateTimeBetween('-1 year', 'now'),
+            'date' => fake()->dateTimeBetween('-1 days', 'now'),
             'purchase_number' => $purchase_number,
             'description' => $purchase_number,
         ]);
@@ -166,10 +220,10 @@ class _InitalSeeder extends Seeder
             PurchaseDetails::create([
                 'purchase_id' => $purchase->id,
                 'product_id' => $product->id,
-                'quantity' => fake()->numberBetween(1, 10),
-
-                'purchase_price' => $product->sale_price-(($product->sale_price*20)/100),
+                'quantity' => $qty = fake()->numberBetween(1, 10),
+                'purchase_price' => $purchasePrice = $product->sale_price-(($product->sale_price*20)/100),
                 'sale_price' => $product->sale_price,
+                'total' => $purchasePrice * $qty,
             ]);
         }
 
@@ -179,7 +233,7 @@ class _InitalSeeder extends Seeder
 
         $purchase = Purchase::create([
             'user_id' => User::inRandomOrder()->first()->id,
-            'date' => fake()->dateTimeBetween('-1 year', 'now'),
+            'date' => fake()->dateTimeBetween('-1 days', 'now'),
             'purchase_number' => $purchase_number,
             'description' => $purchase_number,
         ]);
@@ -192,9 +246,10 @@ class _InitalSeeder extends Seeder
             PurchaseDetails::create([
                 'purchase_id' => $purchase->id,
                 'product_id' => $product->id,
-                'quantity' => fake()->numberBetween(1, 10),
-                'purchase_price' => $product->sale_price-(($product->sale_price*20)/100),
+                'quantity' => $qty = fake()->numberBetween(1, 10),
+                'purchase_price' => $purchasePrice = $product->sale_price-(($product->sale_price*20)/100),
                 'sale_price' => $product->sale_price,
+                'total' => $purchasePrice * $qty,
             ]);
         }
     }
@@ -205,7 +260,7 @@ class _InitalSeeder extends Seeder
 
         $sale = Sale::create([
             'user_id' => User::inRandomOrder()->first()->id,
-            'date' => fake()->dateTimeBetween('-1 year', 'now'),
+            'date' => fake()->dateTimeBetween('-1 days', 'now'),
             'sale_number' => $sale_number,
             'description' => $sale_number,
         ]);
@@ -218,8 +273,9 @@ class _InitalSeeder extends Seeder
             SaleDetails::create([
                 'sale_id' => $sale->id,
                 'product_id' => $product->id,
-                'quantity' => fake()->numberBetween(1, 10),
+                'quantity' => $qty = fake()->numberBetween(1, 10),
                 'sale_price' => $product->sale_price,
+                'total' => $product->sale_price * $qty,
             ]);
         }
 
@@ -228,7 +284,7 @@ class _InitalSeeder extends Seeder
 
         $sale = sale::create([
             'user_id' => User::inRandomOrder()->first()->id,
-            'date' => fake()->dateTimeBetween('-1 year', 'now'),
+            'date' => fake()->dateTimeBetween('-1 days', 'now'),
             'sale_number' => $sale_number,
             'description' => $sale_number,
         ]);
@@ -241,8 +297,9 @@ class _InitalSeeder extends Seeder
             saleDetails::create([
                 'sale_id' => $sale->id,
                 'product_id' => $product->id,
-                'quantity' => fake()->numberBetween(1, 10),
+                'quantity' => $qty = fake()->numberBetween(1, 10),
                 'sale_price' => $product->sale_price,
+                'total' => $product->sale_price * $qty,
             ]);
         }
     }

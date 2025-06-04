@@ -18,7 +18,7 @@ class CategoryResource extends Resource
     protected static ?string $model = Category::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-tag';
-    
+
     /*  */
 
     protected static ?int $navigationSort = 1;
@@ -65,13 +65,17 @@ class CategoryResource extends Resource
 
                 Tables\Columns\TextColumn::make('description')
                     ->label(__('Description'))
+                    ->limit(70)
                     ->searchable()->sortable(),
 
+                Tables\Columns\TextColumn::make('products_count')
+                    ->label(__('Products'))
+                    ->counts('products')
+                    ->sortable(),
 
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
-                    ->searchable()->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->searchable()->sortable(),
 
 
                 Tables\Columns\TextColumn::make('updated_at')

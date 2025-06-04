@@ -15,6 +15,7 @@ class SaleDetails extends Model
         'product_id',
         'quantity',
         'sale_price',
+        'total',
     ];
 
     public function sale():BelongsTo

@@ -9,6 +9,7 @@ use App\Models\Sale;
 
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Support\Colors\Color;
 use Filament\Tables;
@@ -92,7 +93,6 @@ class SaleResource extends Resource
                             ->relationship()
                             ->label(__('Sale Items'))
                             ->schema([
-
                                 Forms\Components\Section::make()->schema([
 
                                     Forms\Components\Select::make('product_id')
@@ -111,6 +111,7 @@ class SaleResource extends Resource
                                             if ($product) {
                                                 $set('purchase_price', $product->purchase_price);
                                                 $set('sale_price', $product->sale_price);
+                                                $set('total', $product->sale_price);
                                             }
                                         })
 
@@ -123,7 +124,24 @@ class SaleResource extends Resource
                                         ->numeric()
                                         ->integer()
                                         ->dehydrated()
-                                        ->required(),
+                                        ->required()
+                                        ->rule(function (Get $get) {
+                                            return function (string $attribute, $value, \Closure $fail) use ($get) {
+                                                $productId = $get('product_id');
+                                                if ($productId) {
+                                                    $product = Product::find($productId);
+                                                    if ($product && $value > $product->stock) {
+                                                        $fail("La cantidad ({$value}) excede el stock disponible ({$product->stock}).");
+                                                    }
+                                                }
+                                            };
+                                        })
+                                        ->afterStateUpdated(function (callable $set, callable $get, $state) {
+                                            $product = Product::find($state);
+                                            if ($product) {
+                                                $set('total', $get('sale_price') * $get('quantity'));
+                                            }
+                                        }),
 
 
 
@@ -134,6 +152,11 @@ class SaleResource extends Resource
                                         ->dehydrated()
                                         ->required(),
 
+                                    Forms\Components\TextInput::make('total')
+                                        ->label(__('Total Price'))
+                                        ->live()
+                                        ->dehydrated()
+                                        ->readOnly(),
 
                                 ])->columns(3),
                             ]),

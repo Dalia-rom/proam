@@ -103,7 +103,7 @@ class PurchaseResource extends Resource
                                         ->live()
                                         ->dehydrated()
 
-                                        ->afterStateUpdated(function (callable $set, $state) {
+                                        ->afterStateUpdated(function (callable $set, callable $get, $state) {
                                             // Obtener el producto seleccionado por su ID
                                             $product = Product::find($state);
 
@@ -111,6 +111,7 @@ class PurchaseResource extends Resource
                                             if ($product) {
                                                 $set('purchase_price', $product->purchase_price);
                                                 $set('sale_price', $product->sale_price);
+                                                $set('total', $product->purchase_price);
                                             }
                                         })
 
@@ -121,7 +122,16 @@ class PurchaseResource extends Resource
                                         ->default(1)
                                         ->live()
                                         ->dehydrated()
-                                        ->required(),
+                                        ->required()
+                                        ->afterStateUpdated(function (callable $set, callable $get, $state) {
+                                            // Obtener el producto seleccionado por su ID
+                                            $product = Product::find($state);
+
+                                            // Si el producto existe, actualizar el precio unitario
+                                            if ($product) {
+                                                $set('total', $get('purchase_price') * $get('quantity'));
+                                            }
+                                        }),
 
                                     Forms\Components\TextInput::make('purchase_price')
                                         ->label(__('Purchase Price'))
@@ -136,6 +146,12 @@ class PurchaseResource extends Resource
                                         ->dehydrated()
                                         ->readOnly()
                                         ->required(),
+
+                                    Forms\Components\TextInput::make('total')
+                                        ->label(__('Total Price'))
+                                        ->live()
+                                        ->dehydrated()
+                                        ->readOnly(),
 
 
                                 ])->columns(4),

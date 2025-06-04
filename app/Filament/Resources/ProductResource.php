@@ -155,7 +155,12 @@ class ProductResource extends Resource
                     ->label(__('Stock'))
                     ->toggleable(isToggledHiddenByDefault: false)
                     ->numeric()
-                    ->sortable()->searchable(),
+                    ->sortable()
+                    ->searchable()
+                    ->summarize([
+                        Tables\Columns\Summarizers\Sum::make(),
+                        Tables\Columns\Summarizers\Average::make(),
+                    ]),
 
                 Tables\Columns\TextColumn::make('min_stock')
                     ->label(__('Min Stock'))
@@ -173,12 +178,22 @@ class ProductResource extends Resource
                     ->label(__('Purchase Price'))
                     ->numeric()
                     ->toggleable(isToggledHiddenByDefault: true)
-                    ->sortable()->searchable(),
+                    ->sortable()
+                    ->searchable()
+                    ->summarize([
+                        Tables\Columns\Summarizers\Sum::make(),
+                        Tables\Columns\Summarizers\Average::make(),
+                    ]),
 
                 Tables\Columns\TextColumn::make('sale_price')
                     ->label(__('Sale Price'))
                     ->numeric()
-                    ->sortable()->searchable(),
+                    ->sortable()
+                    ->searchable()
+                    ->summarize([
+                        Tables\Columns\Summarizers\Sum::make(),
+                        Tables\Columns\Summarizers\Average::make(),
+                    ]),
 
                 Tables\Columns\TextColumn::make('expiration_at')
                     ->label(__('Expiration Date'))
